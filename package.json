@@ -1,0 +1,23 @@
+{
+  "name": "bamazon",
+  "version": "1.0.0",
+  "description": "an Amazon-like storefront with MySQL.The app will take in orders from customers and deplete stock from the store's inventory.",
+  "main": "bamazonCustomer.js",
+  "scripts": {
+    "test": "hello world"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BrienHall/bamazon.git"
+  },
+  "author": "Brien Hall",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BrienHall/bamazon/issues"
+  },
+  "homepage": "https://github.com/BrienHall/bamazon#readme",
+  "dependencies": {
+    "inquirer": "^3.2.3",
+    "mysql": "^2.14.1"
+  }
+}
