@@ -17,6 +17,10 @@ connection.connect(function(err){
 
 connection.query('SELECT * FROM products', showProducts);
 
+refresh = function(){
+  connection.query('SELECT * FROM products', showProducts);
+}
+
 function showProducts(err, res, fields) {
   if (err){
     throw err;
@@ -32,7 +36,7 @@ function showProducts(err, res, fields) {
       name: 'item',
       message: 'Choose a tire:',
       choices: ['Exit', ...products,],
-      default: 1
+      default: 0
     }
   ]).then(function(response) {
     if (response.item === 'Exit') {
@@ -63,12 +67,12 @@ function showProducts(err, res, fields) {
   });
 }
 
-function makePurchase(item, qty, showProd) {
+function makePurchase(item, qty, showProducts) {
   if (item.stock_quantity < qty) {
     console.log("************************************************************************")
     console.log('Insufficient quantity: ' + item.stock_quantity + ' of ' + item.product_name + ' in stock and cannot fill your order.')
     console.log("************************************************************************")
-    showProd();
+    showProducts();
   } else {
     var totalCost = item.price * qty;
     var updatedInventory = item.stock_quantity - qty;
@@ -78,7 +82,8 @@ function makePurchase(item, qty, showProd) {
     connection.query('UPDATE products SET stock_quantity ='+updatedInventory+' WHERE item_id ='+item.item_id, function(err) {
       if (err) throw err;
     });
-    connection.query('SELECT * FROM products', showProducts);
+    refresh();
   }
-  // showProducts();
+  
 }
+
